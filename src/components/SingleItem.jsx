@@ -1,6 +1,6 @@
 import { RiDeleteBack2Fill } from 'react-icons/ri'
 import { AiTwotoneEdit } from 'react-icons/ai'
-import { removeSingleTodo, editTodo, setCurrentItem } from '../features/todo/todoSlice'
+import { removeSingleTodo, editTodo } from '../features/todo/todoSlice'
 import { showAlert, hideAlert } from '../features/alert/alertSlice'
 import { openForDetail } from '../features/modal/modalSlice'
 

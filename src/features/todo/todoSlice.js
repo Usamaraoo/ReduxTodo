@@ -31,7 +31,7 @@ const todoSlice = createSlice({
         // Updating the coming item and change where current item match update with new
         updateTodo: (state, { payload }) => {
             const text = payload
-            state.todoItems.map((item) => {
+            state.todoItems.forEach((item) => {
                 if (item.text === state.currentItem) {
                     item.text = text
                 }
