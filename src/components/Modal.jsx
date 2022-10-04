@@ -21,7 +21,7 @@ export default function Modal() {
             {todoDetail ? (
                 // Detail modal
                 <div className='bg-black fixed  left-1/2 transform -translate-x-1/2 top-40  w-3/4 lg:w-4/6 px-10 py-5 text-start rounded-lg tracking-widest z-10 '>
-                    <p>{text}</p>
+                    <p className='truncate'>{text}</p>
 
                     <div className='text-center'>
                         <button

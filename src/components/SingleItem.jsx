@@ -27,7 +27,7 @@ export default function SingleItem({ text }) {
     return (
         <div className='border border-gray-500 flex items-center justify-between px-4 py-2 rounded-lg transition ease-in-out    hover:scale-105  duration-300 '>
             <h1
-                className='text-lg cursor-pointer hover:text-blue-300'
+                className='text-lg cursor-pointer hover:text-blue-300 truncate'
                 //
                 onClick={openDetailModal}
             >
