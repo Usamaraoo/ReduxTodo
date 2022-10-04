@@ -18,15 +18,21 @@ const todoSlice = createSlice({
             state.todoItems = []
             state.total = 0
             window.localStorage.removeItem('todos')
-
         },
         addTodo: (state, { payload }) => {
             const text = payload
             state.todoItems.push({ text })
-            state.total = state.total + 1
+            // for first item create
+            if (!JSON.parse(window.localStorage.getItem('todos'))) {
+                window.localStorage.setItem('todos', JSON.stringify(state.todoItems))
+                state.total = JSON.parse(window.localStorage.getItem('todos')).length + 1
+            } else {
+                state.total = window.localStorage.getItem('todos')
+                    ? JSON.parse(window.localStorage.getItem('todos')).length + 1
+                    : 0
+                window.localStorage.setItem('todos', JSON.stringify(state.todoItems))
+            }
             // updating list in local storage
-
-            window.localStorage.setItem('todos', JSON.stringify(state.todoItems))
         },
         // Updating the coming item and change where current item match update with new
         updateTodo: (state, { payload }) => {
@@ -57,12 +63,11 @@ const todoSlice = createSlice({
         removeSingleTodo: (state, action) => {
             const text = action.payload
             state.todoItems = state.todoItems.filter((item) => item.text !== text)
-            state.total = state.total - 1
+            state.total = JSON.parse(window.localStorage.getItem('todos')).length - 1
             window.localStorage.setItem('todos', JSON.stringify(state.todoItems))
         },
     },
 })
-
 
 export const {
     clearTodo,

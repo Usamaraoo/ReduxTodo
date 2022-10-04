@@ -1,18 +1,12 @@
 import SingleItem from './SingleItem'
 import TodoForm from './TodoForm'
-import { BiSad } from 'react-icons/bi'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeModalState } from '../features/modal/modalSlice'
-import { useEffect } from 'react'
+import emptyImg from '../assests/images/empty.svg'
 
 export default function Home() {
     const dispatch = useDispatch()
     const { todoItems, total } = useSelector((store) => store.todo)
-    useEffect(() => {
-      
-      if(window.localStorage.getItem('todos') === null)  window.localStorage.setItem('todos',JSON.stringify([]))
-    }, [])
-    
     return (
         <div className="w-5/6 mx-auto mt-5 ">
             {total > 1 && <div className='text-end mb-5 text-red-400'>
@@ -28,9 +22,9 @@ export default function Home() {
                             })}
                         </div>
                     ) : (
-                        <div className='tracking-widest text-4xl flex gap-2 items-center font-bold'>
-                            <p> Empty </p>
-                            <BiSad className='text-1   xl' />
+                        <div className='tracking-widest  text-4xl flex flex-col gap-2 items-center font-bold justify-center'>
+                            <p>No Todos</p>
+                            <img src={emptyImg} alt="Empty" className='w-48 h-54' />
                         </div>
                     )}
                 </div>
