@@ -2,17 +2,17 @@ import Nav from './components/Nav'
 import Home from './components/Home'
 import Modal from './components/Modal'
 import Alert from './components/Alert'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector} from 'react-redux'
 import { useEffect } from 'react'
-import { getTodoOnline } from './features/todo/todoSlice'
+// import { getTodoOnline } from './features/todo/todoSlice'
 
 function App() {
     const { open } = useSelector((store) => store.modal)
     const { isLoading } = useSelector((store) => store.todo)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     useEffect(() => {
         // dipatching extrareducer action which use thunk
-        dispatch(getTodoOnline('firstparam')) // not using param just example 
+        // dispatch(getTodoOnline('firstparam')) // not using param just example 
     }, [])
 
     return (
