@@ -5,33 +5,45 @@ import { showAlert, hideAlert } from '../features/alert/alertSlice'
 import { useSelector } from 'react-redux'
 
 export default function TodoForm() {
-    const { update, currentItem } = useSelector((store) => store.todo)
+    const { update, currentItem, todoItems } = useSelector((store) => store.todo)
 
     const dispatch = useDispatch()
     const [inputText, setInputText] = useState('')
     const todoLimit = 300
     const formTodo = () => {
+        console.log()
+
         // checking input length
         if (inputText.length >= 10 && inputText.length <= todoLimit) {
-            // it state is update run the update function otherwise add
-            if (update) {
-                dispatch(updateTodo(inputText))
+            //    checking it the input item is unique or not
+            if (todoItems.filter((i) => i.text === inputText).length > 0) {
                 dispatch(
                     showAlert({
-                        text: 'Todo Updated successfully',
-                        color: 'text-green-300',
+                        text: 'This item already exists',
+                        color: 'text-red-300',
                     })
                 )
             } else {
-                dispatch(addTodo(inputText))
-                dispatch(
-                    showAlert({
-                        text: 'Todo added successfully',
-                        color: 'text-green-300',
-                    })
-                )
+                // it state is update run the update function otherwise add
+                if (update) {
+                    dispatch(updateTodo(inputText))
+                    dispatch(
+                        showAlert({
+                            text: 'Todo Updated successfully',
+                            color: 'text-green-300',
+                        })
+                    )
+                } else {
+                    dispatch(addTodo(inputText))
+                    dispatch(
+                        showAlert({
+                            text: 'Todo added successfully',
+                            color: 'text-green-300',
+                        })
+                    )
+                }
+                setInputText('')
             }
-            setInputText('')
         } else {
             dispatch(
                 showAlert({

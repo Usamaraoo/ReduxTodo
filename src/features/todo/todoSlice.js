@@ -1,6 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 const initialState = {
+    isLoading:false,
     todoItems: JSON.parse(window.localStorage.getItem('todos')) || [],
     update: false, // update status to change form action
     currentItem: '', // if user update any text
@@ -10,6 +12,22 @@ const initialState = {
         : 0,
 }
 
+// thunk part
+const url = 'https://course-api.com/react-useReducer-cart-project'
+
+
+export const getTodoOnline = createAsyncThunk('todo/getTodoItems', async (param1,thunkAPI) => {
+    try {
+        // using thunkApi optiona
+        // console.log('thunk func param',param1);
+        // thunkAPI.dispatch(anyotherfeatureationtocall,())
+        const resp = await axios(url)
+        return resp.data
+    } catch (err) {
+        return thunkAPI.rejectWithValue('somethin went wroog')
+    }
+  });
+  
 const todoSlice = createSlice({
     name: 'todo',
     initialState,
@@ -67,6 +85,20 @@ const todoSlice = createSlice({
             window.localStorage.setItem('todos', JSON.stringify(state.todoItems))
         },
     },
+    extraReducers:{
+        [getTodoOnline.pending]:(state)=>{
+            // state.isLoading = true
+        },
+        [getTodoOnline.fulfilled]:(state,action)=>{
+           
+            // state.isLoading = false
+            // data from api returned
+            // state.todoItems = action.payload
+        },
+        [getTodoOnline.rejected]:(state,action)=>{
+            // state.isLoading = false 
+        }
+    }
 })
 
 export const {
